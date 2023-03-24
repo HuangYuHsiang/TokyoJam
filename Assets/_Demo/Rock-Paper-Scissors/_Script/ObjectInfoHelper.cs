@@ -5,10 +5,10 @@ using UnityEngine;
 public class ObjectInfoHelper : MonoBehaviour
 {
     [SerializeField]
-    public CustomObjectType mType;
+    public CustomPose mType;
 
     [SerializeField]
-    public CustomHandPose mHandPose;
+    public CustomPose mHandPose;
 
 
 }

@@ -4,22 +4,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum CustomObjectType
-{
-    ClothHand,
-    ScissorsHand,
-    RockHand
-}
+//public enum CustomObjectType
+//{
+//    ClothHand,
+//    ScissorsHand,
+//    RockHand
+//}
 
 public class HandPoseManager : MonoBehaviour
 {
 
     #region Unity Event
     [HideInInspector]
-    public class OnTriggerEnterEvent : UnityEvent<CustomHandPose ,GameObject, CustomHandType> { }
+    public class OnTriggerEnterEvent : UnityEvent<CustomPose ,GameObject, CustomHandType> { }
     
     [HideInInspector]
-    public class OnTriggerExitEvent : UnityEvent<CustomHandPose, GameObject, CustomHandType> { }
+    public class OnTriggerExitEvent : UnityEvent<CustomPose, GameObject, CustomHandType> { }
 
     public OnTriggerEnterEvent TriggerEnter;
     public OnTriggerExitEvent TriggerExit;
@@ -71,7 +71,7 @@ public class HandPoseManager : MonoBehaviour
         //傳遞碰撞到的物件和當前的手勢給Game Manager
         if (TriggerEnter != null)
         {
-            CustomHandPose mCustomHandPose = CustomHandPose.None;
+            CustomPose mCustomHandPose = CustomPose.None;
 
             if (mCustomHandType == CustomHandType.Left)            
                 mCustomHandPose = HandPoseDetector.instance.LeftHandPose;             
@@ -90,12 +90,11 @@ public class HandPoseManager : MonoBehaviour
         //UIText_Debug.text += "\n Game Object: " + mGameObject.name;
         //UIText_Debug.text += "\n RightHandPose: " + HandPoseDetector.instance.RightHandPose;
         //UIText_Debug.text += "\n LeftHandPose: " + HandPoseDetector.instance.LeftHandPose;
-
-        //傳遞碰撞到的物件和當前的手勢給Game Manager
+        
         //傳遞碰撞到的物件和當前的手勢給Game Manager
         if (TriggerExit != null)
         {
-            CustomHandPose mCustomHandPose = CustomHandPose.None;
+            CustomPose mCustomHandPose = CustomPose.None;
 
             if (mCustomHandType == CustomHandType.Left)
                 mCustomHandPose = HandPoseDetector.instance.LeftHandPose;

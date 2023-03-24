@@ -9,7 +9,7 @@ public class GameObjectController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        this.transform.DOLocalMove(new Vector3(0f, 0.95f, 0f), Random.Range(1.75f, 2.5f)).OnComplete(() =>
+        this.transform.DOLocalMove(new Vector3(0f, 0.95f, 0f), Random.Range(2.75f, 3.5f)).OnComplete(() =>
         {
             Destroy(this.gameObject);
         });
@@ -18,7 +18,7 @@ public class GameObjectController : MonoBehaviour
     public void DestroyItem() {
         this.transform.DOPause();
 
-        this.transform.DOScale(new Vector3(0f, 0f, 0f), 0.75f).OnComplete(() =>
+        this.transform.DOScale(new Vector3(0f, 0f, 0f), 0.65f).OnComplete(() =>
         {
             Destroy(this.gameObject);
         });

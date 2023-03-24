@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public enum CustomHandPose
+public enum CustomPose
 {
     None = 0,
     Scissors = 1,
@@ -14,10 +14,10 @@ public enum CustomHandPose
 public class HandPoseDetector : MonoBehaviour
 {
     [HideInInspector]
-    public CustomHandPose LeftHandPose;
+    public CustomPose LeftHandPose;
 
     [HideInInspector]
-    public CustomHandPose RightHandPose;
+    public CustomPose RightHandPose;
 
     public static HandPoseDetector instance = null;
 
@@ -34,36 +34,36 @@ public class HandPoseDetector : MonoBehaviour
     #region Rock Pose    
     public void RockPoseLeft()
     {
-        RightHandPose = CustomHandPose.Rock;
+        LeftHandPose = CustomPose.Rock;
     }
 
     public void RockPoseRight()
     {
-        LeftHandPose = CustomHandPose.Rock;
+        RightHandPose = CustomPose.Rock;        
     }
     #endregion
 
     #region Cloth Pose    
     public void ClothPoseRight()
     {
-        RightHandPose = CustomHandPose.Cloth;
+        RightHandPose = CustomPose.Cloth;
     }
 
     public void ClothPoseLeft()
     {
-        LeftHandPose = CustomHandPose.Cloth;
+        LeftHandPose = CustomPose.Cloth;
     }
     #endregion
 
     #region  Scissors Pose    
     public void ScissorsPoseRight()
     {
-        RightHandPose = CustomHandPose.Scissors;
+        RightHandPose = CustomPose.Scissors;
     }
 
     public void ScissorsPoseLeft()
     {
-        LeftHandPose = CustomHandPose.Scissors;
+        LeftHandPose = CustomPose.Scissors;
     }
     #endregion
 
