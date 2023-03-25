@@ -33,9 +33,9 @@ public class GameManager : MonoBehaviour
     public int spawnAreaXMax = 2;
 
     [HideInInspector]
-    public float spawnIntervalMin = 2.15f;
+    public float spawnIntervalMin = 3.15f;
     [HideInInspector]
-    public float spawnIntervalMax = 3.25f;
+    public float spawnIntervalMax = 4.25f;
 
     bool IsGameStart = false;
     int Score = 0;

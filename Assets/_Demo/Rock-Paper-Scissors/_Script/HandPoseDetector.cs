@@ -9,7 +9,8 @@ public enum CustomPose
     None = 0,
     Scissors = 1,
     Rock = 2,
-    Cloth = 3
+    Cloth = 3,
+    ThumbsUp = 4,
 }
 public class HandPoseDetector : MonoBehaviour
 {
@@ -64,6 +65,18 @@ public class HandPoseDetector : MonoBehaviour
     public void ScissorsPoseLeft()
     {
         LeftHandPose = CustomPose.Scissors;
+    }
+    #endregion
+
+    #region  ThumbsUp Pose    
+    public void ThumbsUpPoseRight()
+    {
+        RightHandPose = CustomPose.ThumbsUp;
+    }
+
+    public void ThumbsUpPoseLeft()
+    {
+        LeftHandPose = CustomPose.ThumbsUp;
     }
     #endregion
 
