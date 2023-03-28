@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SequenceManager : MonoBehaviour
+public class SequenceDemoManager : MonoBehaviour
 {
     [Header("UI")]
     public TextMeshPro UIText_RightHead;
