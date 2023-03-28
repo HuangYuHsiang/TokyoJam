@@ -12,6 +12,7 @@ public enum CustomPose
     Cloth = 3,
     ThumbsUp = 4,
     Fire = 5, //Sequence 
+    Thunder = 6, //Sequence 
 }
 public class HandPoseDetector : MonoBehaviour
 {
@@ -90,6 +91,18 @@ public class HandPoseDetector : MonoBehaviour
     public void FirePoseLeft()
     {
         LeftHandPose = CustomPose.Fire;
+    }
+    #endregion
+
+    #region  Thunder Pose (Sequence)
+    public void ThunderPoseRight()
+    {
+        RightHandPose = CustomPose.Thunder;
+    }
+
+    public void ThunderPoseLeft()
+    {
+        LeftHandPose = CustomPose.Thunder;
     }
     #endregion
 
