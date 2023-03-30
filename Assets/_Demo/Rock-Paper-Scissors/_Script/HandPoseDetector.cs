@@ -122,12 +122,12 @@ public class HandPoseDetector : MonoBehaviour
     #region Pose UnSelected
     public void PoseUnSelectedRight()
     {
-        RightHandPose = CustomPose.None;
+        //RightHandPose = CustomPose.None;
     }
 
     public void PoseUnSelectedLeft()
     {
-        LeftHandPose = CustomPose.None;
+        //LeftHandPose = CustomPose.None;
     }
     #endregion
 

@@ -7,11 +7,12 @@ using Random = UnityEngine.Random;
 using DG.Tweening;
 
 
-public class GameManager_Rule2 : MonoBehaviour
+public class GameManager_Mode2 : MonoBehaviour
 {
     #region Debug UI
     public TextMeshProUGUI UIText_Debug;
     #endregion
+
 
 
     [Header("SkinnedMeshRenderer")]
@@ -29,8 +30,8 @@ public class GameManager_Rule2 : MonoBehaviour
     public GameObject Button_Start;
     public TextMeshPro Button_Start_Text;
 
-    public TextMeshPro UIText_Score;    
-    public TextMeshPro UIText_BestScore;
+    public TextMeshPro UIText_Time;    
+    public TextMeshPro UIText_BestTime;
     public TextMeshPro UIText_HowToPlay;    
 
     public TextMeshPro UIText_RightHeadPose;
@@ -41,33 +42,42 @@ public class GameManager_Rule2 : MonoBehaviour
 
 
     [Header("Setting")]
-    bool IsGameStart = true;
+    bool IsGameStart = false;
     bool IsRightHeadLock = false;
-    bool IsLeftHeadLock = false;
-    int Score = 0;
-    int Wave = 0;
+    bool IsLeftHeadLock = false;    
+    int Round = 0;
     int HeadLockTime = 3;
 
     [Header("Other")]
-    public List<GameObject> WaveObjectList = new List<GameObject>();
+    public List<GameObject> RoundObjectList = new List<GameObject>();
 
     public void GameStart()
     {
-
         //處理VR按鈕瞬間消失會出現錯誤的解法
         this.transform.DOScaleZ(1, 0.15f).OnComplete(() =>
         {
+            UIText_RightHeadPose.gameObject.SetActive(true);
+            UIText_LeftHeadPose.gameObject.SetActive(true);
+
+            Round = 0;
             IsGameStart = true;
+            UIText_HowToPlay.gameObject.SetActive(false);
             Button_Start.SetActive(false);
-            CheckWave();
+            ResetTimer();
+            CheckRound();
         });
 
     }
 
     public void GameOver()
     {
+        UIText_RightHeadPose.gameObject.SetActive(false);
+        UIText_LeftHeadPose.gameObject.SetActive(false);
+
         IsGameStart = false;        
         Button_Start.SetActive(true);
+        SavedBestTime();
+        UIText_HowToPlay.gameObject.SetActive(true);
         Button_Start_Text.text = "再玩一次";
     }
 
@@ -78,7 +88,9 @@ public class GameManager_Rule2 : MonoBehaviour
         Random.InitState(seed);
 
         HandPoseManager.TriggerEnter.AddListener(OnCustomTriggerEnter);
-        HandPoseManager.TriggerExit.AddListener(OnCustomTriggerExit);        
+        HandPoseManager.TriggerExit.AddListener(OnCustomTriggerExit);
+
+        LoadBestTime();
     }
 
     private void OnDestroy()
@@ -161,10 +173,10 @@ public class GameManager_Rule2 : MonoBehaviour
             if (mCustomHandPose == CustomPose.Cloth)
             {
                 mGameObjectController.DestroyItem();
-                WaveObjectList.Remove(mGameObject);
+                RoundObjectList.Remove(mGameObject);
 
                 if (IsGameStart)
-                    NextWave();
+                    NextRound();
             }
 
             if (mCustomHandPose == CustomPose.Scissors)
@@ -180,10 +192,10 @@ public class GameManager_Rule2 : MonoBehaviour
             if (mCustomHandPose == CustomPose.Rock)
             {
                 mGameObjectController.DestroyItem();
-                WaveObjectList.Remove(mGameObject);
+                RoundObjectList.Remove(mGameObject);
 
                 if (IsGameStart)
-                    NextWave();
+                    NextRound();
             }
 
             if (mCustomHandPose == CustomPose.Cloth)
@@ -199,10 +211,10 @@ public class GameManager_Rule2 : MonoBehaviour
             if (mCustomHandPose == CustomPose.Scissors)
             {
                 mGameObjectController.DestroyItem();
-                WaveObjectList.Remove(mGameObject);
+                RoundObjectList.Remove(mGameObject);
 
                 if (IsGameStart)
-                    NextWave();
+                    NextRound();
             }
 
             if (mCustomHandPose == CustomPose.Rock)
@@ -243,57 +255,64 @@ public class GameManager_Rule2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UIText_RightHeadPose.text = HandPoseDetector.instance.RightHandPose.ToString();
+        UIText_LeftHeadPose.text = HandPoseDetector.instance.LeftHandPose.ToString();
+
+        if (IsGameStart)
+        {
+            elapsedTime += Time.deltaTime;
+            DisplayTime(elapsedTime);
+        }
     }
 
-    #region Wave
+    #region Round
 
-    void NextWave() {
+    void NextRound() {
 
 
 
-        if (WaveObjectList.Count != 0)
+        if (RoundObjectList.Count != 0)
             return;
         else
         {
-            if (Wave >= 2)
+            if (Round >= 2)
             {
                 GameOver();
                 return;
             }
 
-            Wave++;
-            CheckWave();
+            Round++;
+            CheckRound();
         }
     }
 
-    void CheckWave() {      
+    void CheckRound() {      
 
-        switch (Wave)
+        switch (Round)
         {
             case 0:
-                SpawnWave_1();
+                SpawnRound_1();
                 break;
             case 1:
-                SpawnWave_2();
+                SpawnRound_2();
                 break;
             case 2:
-                SpawnWave_3();
+                SpawnRound_3();
                 break;
         }
     }
 
-    private void SpawnWave_1()
+    private void SpawnRound_1()
     {        
         SpawnObjects(3);
     }
 
-    private void SpawnWave_2()
+    private void SpawnRound_2()
     {     
         SpawnObjects(5);
     }
 
-    private void SpawnWave_3()
+    private void SpawnRound_3()
     {        
         SpawnObjects(8);
     }
@@ -312,10 +331,9 @@ public class GameManager_Rule2 : MonoBehaviour
 
             spawnedObject.GetComponent<GameObjectController>().PopUp();
 
-            WaveObjectList.Add(spawnedObject);
+            RoundObjectList.Add(spawnedObject);
         }
     }
-
 
     List<Vector3> GenerateRandomVectors(int numberOfVectors)
     {
@@ -342,4 +360,70 @@ public class GameManager_Rule2 : MonoBehaviour
 
         return vectors;
     }
+
+
+    #region Timer
+
+
+
+    private float elapsedTime;
+    //private bool isRunning;
+
+    void DisplayTime(float timeToDisplay)
+    {
+        float seconds = timeToDisplay % 60;
+        float milliseconds = (timeToDisplay % 1) * 1000;
+
+        UIText_Time.text = string.Format("{0:00}:{1:000}", seconds, milliseconds);
+    }
+
+    void DisplayBestTime(float timeToDisplay)
+    {
+        float seconds = timeToDisplay % 60;
+        float milliseconds = (timeToDisplay % 1) * 1000;
+
+        UIText_BestTime.text = string.Format("{0:00}:{1:000}", seconds, milliseconds);
+    }
+
+    //public void StartTimer()
+    //{
+    //    IsGameStart = true;
+    //}
+
+    //public void PauseTimer()
+    //{
+    //    IsGameStart = false;
+    //}
+
+    public void ResetTimer()
+    {
+        //IsGameStart = false;
+        elapsedTime = 0f;
+        DisplayTime(elapsedTime);
+    }
+
+    public void SavedBestTime()
+    {
+        float savedTime = PlayerPrefs.GetFloat("BestScore_GameMode2", 99999.99f);
+
+        if (elapsedTime < savedTime)
+        {
+            PlayerPrefs.SetFloat("BestScore_GameMode2", elapsedTime);
+            PlayerPrefs.Save();
+            DisplayBestTime(elapsedTime);
+        }
+    }
+
+    public void LoadBestTime()
+    {
+        if (PlayerPrefs.HasKey("BestScore_GameMode2"))
+        {
+            float savedTime = PlayerPrefs.GetFloat("BestScore_GameMode2");
+            DisplayBestTime(savedTime);
+        }
+    }
+
+
+    #endregion
+
 }

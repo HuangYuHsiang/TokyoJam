@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 
-public class GameManager : MonoBehaviour
+public class GameManager_Mode1 : MonoBehaviour
 {
     #region Debug UI
     public TextMeshProUGUI UIText_Debug;
@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         HandPoseManager.TriggerEnter.AddListener(OnCustomTriggerEnter);
         HandPoseManager.TriggerExit.AddListener(OnCustomTriggerExit);
 
-        int BestScore = PlayerPrefs.GetInt("BestScore", 0);
+        int BestScore = PlayerPrefs.GetInt("BestScore_GameMode1", 0);
         UIText_BestScore.text = BestScore.ToString();
     }
 
@@ -88,11 +88,11 @@ public class GameManager : MonoBehaviour
             Button_Start_Text.text = "REPLAY";
             Button_Start.SetActive(true);
 
-            int BestScore = PlayerPrefs.GetInt("BestScore", 0);
+            int BestScore = PlayerPrefs.GetInt("BestScore_GameMode1", 0);
             if (Score > BestScore)
             {
                 BestScore = Score;
-                PlayerPrefs.SetInt("BestScore", BestScore);
+                PlayerPrefs.SetInt("BestScore_GameMode1", BestScore);
                 UIText_BestScore.text = BestScore.ToString();
             }
         }
