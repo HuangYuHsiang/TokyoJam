@@ -15,7 +15,6 @@ public class GameObjectController : MonoBehaviour
 
         });
     }
-
     private void Start()
     {
 
@@ -29,16 +28,7 @@ public class GameObjectController : MonoBehaviour
         {
             Destroy(this.gameObject);
         });
-    }
-
-    private IEnumerator CoroutineMove()
-    {
-        yield return new WaitForSeconds(0.15f);
-        this.transform.DOLocalMove(new Vector3(0f, 0.95f, 0f), Random.Range(3.75f, 4.55f)).OnComplete(() =>
-        {
-            Destroy(this.gameObject);
-        });
-    }
+    } 
 
     public void DestroyItem() {
         this.transform.DOPause();

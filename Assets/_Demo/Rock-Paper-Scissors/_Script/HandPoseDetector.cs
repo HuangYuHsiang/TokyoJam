@@ -137,4 +137,6 @@ public class HandPoseDetector : MonoBehaviour
         Debug.Log("Pose Right:" + RightHandPose);
     }
 
+    //新增event可以在手勢變化時觸發
+
 }
