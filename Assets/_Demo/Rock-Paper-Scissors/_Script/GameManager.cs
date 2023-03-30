@@ -246,7 +246,9 @@ public class GameManager : MonoBehaviour
                 2
             );
 
-            Instantiate(prefabToSpawn, randomPosition, Quaternion.identity);
+            prefabToSpawn = Instantiate(prefabToSpawn, randomPosition, Quaternion.identity);
+
+            prefabToSpawn.GetComponent<GameObjectController>().Move();
 
             yield return new WaitForSeconds(Random.Range(spawnIntervalMin, spawnIntervalMax));
         }
