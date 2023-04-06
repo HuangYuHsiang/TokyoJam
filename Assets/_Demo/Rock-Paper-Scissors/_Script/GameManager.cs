@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     public GameObject prefab_ScissorsHand;
     public GameObject prefab_RockHand;
 
+    public bool _useLevelModule = false;
+
     [HideInInspector]
     public int spawnAreaXMin = -2;
     [HideInInspector]
@@ -62,7 +64,7 @@ public class GameManager : MonoBehaviour
         {
             IsGameStart = true;
             Button_Start.SetActive(false);
-            StartCoroutine(SpawnRandomPrefabs());            
+            if(_useLevelModule) StartCoroutine(SpawnRandomPrefabs());            
         });
 
         Score = 0;

@@ -4,12 +4,18 @@ using UnityEngine;
 using DG.Tweening;
 using GNLToolkit;
 using Sirenix.OdinInspector;
+using Sophon.TokyoJam.Level;
+using Sophon.TokyoJam.ScriptableObjects;
 
 namespace GNLToolkit.SpawnerSet
 {
-    public class GNL_Spawner : MonoBehaviour
+    public class GNL_Spawner : BaseSpawner
     {
         SpawnerDOTSet.GNL_SpawnerDOTween GetSpawnerCompoent;
+
+        [Title("Spawn Method")]
+        public bool SpawnOnEnable = true;
+
         //Set SpawnPrefab
         [Title("Set Prefab")]
         [SerializeField]
@@ -85,14 +91,24 @@ namespace GNLToolkit.SpawnerSet
         int CheckEnd;
         public enum _SetPosEnum { TargetPos, VectorPos };
         public enum SetCurveEnum { Custom,DOT };
-
+        #region BaseSpawner
+        public override void Init(Transform container) { }
+        public override void SpawnEnemies(EnemiesData.Data enemy, float speed, float lifetime) 
+        {
+            SetSpawnPrefab = enemy.Prefab;
+            SetStartInsScale();
+        }
+        public override void UntrackSpawnedObject(SpawnObjectMover objMover) { }
+        #endregion
         private void OnEnable()
         {
-            InvokeRepeating("SetStartInsScale", 0, IntervalsTime);
+            if(SpawnOnEnable)
+                InvokeRepeating("SetStartInsScale", 0, IntervalsTime);
         }
         private void OnDisable()
         {
-            CancelInvoke("SetStartInsScale");
+            if (SpawnOnEnable)
+                CancelInvoke("SetStartInsScale");
         }
 
         private void SetStartInsScale()
