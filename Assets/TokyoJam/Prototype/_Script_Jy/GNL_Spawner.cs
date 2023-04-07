@@ -92,7 +92,9 @@ namespace GNLToolkit.SpawnerSet
         public enum _SetPosEnum { TargetPos, VectorPos };
         public enum SetCurveEnum { Custom,DOT };
         #region BaseSpawner
-        public override void Init(Transform container) { }
+        public override void Init(Transform container) {
+            SetSpawnGroup = container.gameObject;
+        }
         public override void SpawnEnemies(EnemiesData.Data enemy, float speed, float lifetime) 
         {
             SetSpawnPrefab = enemy.Prefab;

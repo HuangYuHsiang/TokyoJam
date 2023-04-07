@@ -9471,10 +9471,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CurrentEnemyType: 0
   _SpawnerIndex: 0
-  _EnemiesData: {fileID: 11400000, guid: 7cbf57649f785d44d96bf6ec8fbcf9c0, type: 2}
+  _EnemiesData: {fileID: 11400000, guid: 100f778ef5203c54496120697428411b, type: 2}
   _EnemySpawners:
-  - {fileID: 453196387}
-  - {fileID: 367877956}
+  - {fileID: 1584694084}
+  - {fileID: 2036873033}
   _EnemyContainer: {fileID: 1197724190}
   _Speed: 1
   _Lifetime: 20
