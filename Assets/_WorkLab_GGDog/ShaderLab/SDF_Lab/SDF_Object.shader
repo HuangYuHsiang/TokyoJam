@@ -32,9 +32,12 @@ Shader "Unlit/SDF_Object"
             #pragma vertex vert
             #pragma fragment frag
             
+			#pragma target 3.0
+            #pragma multi_compile_instancing
+
             #pragma shader_feature _SDF_OBJECT _SDF_VERTEX
             #pragma shader_feature _DN_UV_OBJECT _DN_UV_VERTEX
-
+            
             #include "UnityCG.cginc"
 
             struct appdata
@@ -42,6 +45,7 @@ Shader "Unlit/SDF_Object"
                 half4 vertex : POSITION;
                 half2 uv : TEXCOORD0;
 				half3 normal : NORMAL;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct v2f
@@ -50,6 +54,7 @@ Shader "Unlit/SDF_Object"
                 half4 vertex : SV_POSITION;
 				half3 worldNormal : TEXCOORD1;
 				half3 worldPos : TEXCOORD2;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
             
 			half4 GLOBAL_Pos; //接收Script的中心位置
@@ -98,6 +103,9 @@ Shader "Unlit/SDF_Object"
             {
                 v2f o;
                 
+                UNITY_SETUP_INSTANCE_ID(v);
+                UNITY_TRANSFER_INSTANCE_ID(v, o);
+				
                 #if _DN_UV_OBJECT
                        //物件的世界中心
 				    half3 DN_WorldUV = unity_ObjectToWorld._m03_m13_m23;
@@ -138,7 +146,9 @@ Shader "Unlit/SDF_Object"
             
             half4 frag (v2f i) : SV_Target
             {
-
+                
+                UNITY_SETUP_INSTANCE_ID(i);
+				
 				half3 worldNormal = normalize(i.worldNormal);
                 half Shadow = smoothstep(_Sharpness/2,1-_Sharpness/2,dot(_WorldLightDir,worldNormal));
                 
