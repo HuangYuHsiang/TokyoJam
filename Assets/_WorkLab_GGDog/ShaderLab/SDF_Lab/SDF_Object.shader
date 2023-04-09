@@ -132,7 +132,7 @@ Shader "Unlit/SDF_Object"
 
                 half3 SDF_Direct =  normalize(WorldPos-GLOBAL_Pos.xyz);
 
-                half3 SDF = normalize(SDF_Direct)*_Amplitude*SDF_Radius * WaterTex(DN_WorldUV.xz,_DNoise_Tiling,_DNoise_Speed);
+                half3 SDF = SDF_Direct*_Amplitude*SDF_Radius * WaterTex(DN_WorldUV.xz,_DNoise_Tiling,_DNoise_Speed);
 
                 o.vertex = UnityObjectToClipPos(v.vertex + SDF );
 

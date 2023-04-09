@@ -16,6 +16,7 @@ Shader "Unlit/SDF_partical"
 
         Blend SrcAlpha One
         ZWrite Off
+
         Pass
         {
             CGPROGRAM

@@ -10,7 +10,7 @@ Material:
   m_Name: SDF_Object
   m_Shader: {fileID: 4800000, guid: 5b85d9235b84edf41a30349db201d0a7, type: 3}
   m_ValidKeywords:
-  - _DN_UV_OBJECT
+  - _DN_UV_VERTEX
   - _SDF_OBJECT
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -81,16 +81,16 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 0
-    - _Amplitude: 2.42
+    - _Amplitude: 10
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DN_UV: 0
-    - _DNoise_Speed: 0.58
-    - _DNoise_Tiling: 0.5
+    - _DN_UV: 1
+    - _DNoise_Speed: 0
+    - _DNoise_Tiling: 1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -102,8 +102,8 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
-    - _Radius_max: 4.45
-    - _Radius_min: 2.28
+    - _Radius_max: 5
+    - _Radius_min: 0
     - _ReceiveShadows: 1
     - _SDF: 0
     - _Sharpness: 0.5
