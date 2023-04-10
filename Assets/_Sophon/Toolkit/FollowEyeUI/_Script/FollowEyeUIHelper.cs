@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace BBAPE.Toolkit
+namespace Sophon.Toolkit
 {
     public class FollowEyeUIHelper : MonoBehaviour
     {

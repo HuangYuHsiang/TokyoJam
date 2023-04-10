@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BBAPE.Toolkit
+namespace Sophon.Toolkit
 {
     #region 說明
     //將此腳本添加到您想要實現該功能的遊戲物體上（在本例中為多個Cube）。

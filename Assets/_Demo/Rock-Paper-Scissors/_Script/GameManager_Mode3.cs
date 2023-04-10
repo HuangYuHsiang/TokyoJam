@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
 using TMPro;
-using BBAPE.Toolkit;
+using Sophon.Toolkit;
 
 public class GameManager_Mode3 : MonoBehaviour
 {
@@ -68,6 +68,7 @@ public class GameManager_Mode3 : MonoBehaviour
             Button_Start.SetActive(false);
             IsGameStart = true;
             StartCoroutine(SpawnPrefab());
+            UIText_GameOver.SetActive(true);
         });
     }
 
