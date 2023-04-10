@@ -81,6 +81,8 @@ public class GameManager_Mode3 : MonoBehaviour
         IsGameStart = false;
         Button_Start.SetActive(true);
         UIText_GameOver.SetActive(true);
+
+        mPrefabPool.SetAllPrefabDisable();
     }
 
     private IEnumerator SpawnPrefab()

@@ -47,6 +47,17 @@ public class PrefabPool : MonoBehaviour
         return null;
     }
 
+    public GameObject SetAllPrefabDisable()
+    {        
+        foreach (PrefabInstance instance in pool)
+        {
+            instance.SetDisable();
+        }
+
+        // 如果所有物件都在使用中，則返回null
+        return null;
+    }
+
     public void ReturnPrefabToPool(GameObject instance)
     {
         //PrefabInstance prefabInstance = instance.GetComponent<PrefabInstance>();
