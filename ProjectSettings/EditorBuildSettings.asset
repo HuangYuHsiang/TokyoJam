@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Demo/Rock-Paper-Scissors/_Scene/Demo-Rule1.unity
-    guid: 7bc1041d03b29fc4aaeb19847583fb84
+    path: Assets/_Demo/Rock-Paper-Scissors/_Scene/Demo-Mode3.unity
+    guid: c04c6b5e7d53eb542ac637f8b17b64c6
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 397b08710de8fbd49bb7b5f672eb9b80, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 11d70b572eddda845bbec89e9e93b8b5, type: 2}

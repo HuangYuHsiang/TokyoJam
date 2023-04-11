@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [Serializable]
 public enum CustomPose
@@ -17,11 +18,47 @@ public enum CustomPose
 }
 public class HandPoseDetector : MonoBehaviour
 {
+    // Date: 2023-04-05
+    // Author: William
+    // Description: Added HandPoseChanged Event
+    #region Unity Event
     [HideInInspector]
-    public CustomPose LeftHandPose;
+    public class OnLeftHandPoseChanged : UnityEvent<CustomPose> { }
+    [HideInInspector]
+    public class OnRightHandPoseChanged : UnityEvent<CustomPose> { }
+    
+    public OnLeftHandPoseChanged LeftHandPoseChanged;
+    public OnRightHandPoseChanged RightHandPoseChanged;
+    #endregion
+
+    // Date: 2023-04-05
+    // Author: William
+    // Description: Changed variable format
+    #region Hand Pose variable
+    [HideInInspector]
+    private CustomPose _leftHandPose;
+    public CustomPose LeftHandPose 
+    { 
+        set 
+        { 
+            _leftHandPose = value;
+            LeftHandPoseChanged.Invoke(value);
+        }
+        get { return _leftHandPose; } 
+    }
 
     [HideInInspector]
-    public CustomPose RightHandPose;
+    private CustomPose _rightHandPose;
+    public CustomPose RightHandPose
+    {
+        set
+        {
+            _rightHandPose = value;
+            RightHandPoseChanged.Invoke(value);
+        }
+        get { return _rightHandPose; }
+    }
+    #endregion
 
     public static HandPoseDetector instance = null;
 
@@ -33,6 +70,9 @@ public class HandPoseDetector : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        LeftHandPoseChanged = new OnLeftHandPoseChanged();
+        RightHandPoseChanged = new OnRightHandPoseChanged();
     }
 
     #region Rock Pose    
@@ -133,8 +173,8 @@ public class HandPoseDetector : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("Pose Left:" + LeftHandPose);
-        Debug.Log("Pose Right:" + RightHandPose);
-    }
+        //Debug.Log("Pose Left:" + LeftHandPose);
+        //Debug.Log("Pose Right:" + RightHandPose);
+    }   
 
 }
